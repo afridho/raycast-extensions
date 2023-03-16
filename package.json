@@ -66,8 +66,8 @@
     },
     {
       "default": false,
-      "description": "Shows a metadata in List View",
-      "label": "Show metadata in list view",
+      "description": "Shows a metadata in List & Preview",
+      "label": "Show metadata in list and preview",
       "name": "showMetadataInListView",
       "required": false,
       "type": "checkbox"

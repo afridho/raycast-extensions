@@ -1,4 +1,4 @@
-import { Detail, List, Color } from "@raycast/api";
+import { Detail, List, Color, getPreferenceValues } from "@raycast/api";
 import { homedir } from "os";
 import { Note } from "./bear-db";
 import NoteActions from "./note-actions";
@@ -35,13 +35,14 @@ export function formatBearAttachments(text: string | null, forPreview = true): s
 }
 
 export default function PreviewNote({ note }: { note: Note }) {
+  const { showMetadataInListView } = getPreferenceValues();
   const noteContent = note.encrypted ? `# ${note.title}\n\n*This note's content is encrypted*` : note.text;
   return (
     <Detail
       markdown={formatBearAttachments(noteContent)}
       navigationTitle={note.title}
       actions={<NoteActions isNotePreview={true} note={note} />}
-      metadata={<NoteMetadata note={note} />}
+      metadata={showMetadataInListView ? <NoteMetadata note={note} /> : null}
     />
   );
 }
