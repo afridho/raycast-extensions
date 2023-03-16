@@ -1,7 +1,8 @@
-import { Detail } from "@raycast/api";
+import { Detail, List, Color } from "@raycast/api";
 import { homedir } from "os";
 import { Note } from "./bear-db";
 import NoteActions from "./note-actions";
+import { formatDistanceToNowStrict } from "date-fns";
 
 const BEAR_LOCAL_FILES_PATH =
   homedir() + "/Library/Group Containers/9K33E3U3T4.net.shinyfrog.bear/Application Data/Local Files";
@@ -40,6 +41,30 @@ export default function PreviewNote({ note }: { note: Note }) {
       markdown={formatBearAttachments(noteContent)}
       navigationTitle={note.title}
       actions={<NoteActions isNotePreview={true} note={note} />}
+      metadata={<NoteMetadata note={note} />}
     />
+  );
+}
+
+function NoteMetadata({ note }: { note: Note }) {
+  return (
+    <List.Item.Detail.Metadata>
+      <List.Item.Detail.Metadata.Label
+        title="Last modified"
+        text={formatDistanceToNowStrict(note.modifiedAt, { addSuffix: true })}
+      />
+      <List.Item.Detail.Metadata.Label
+        title="Created"
+        text={formatDistanceToNowStrict(note.createdAt, { addSuffix: true })}
+      />
+      <List.Item.Detail.Metadata.Label title="Word count" text={`${note.wordCount} words`} />
+      <List.Item.Detail.Metadata.TagList title="Tags">
+        {note.tags.length === 0 ? (
+          <List.Item.Detail.Metadata.TagList.Item text="Untagged" />
+        ) : (
+          note.tags.map((tag) => <List.Item.Detail.Metadata.TagList.Item text={tag} key={tag} color={Color.Yellow} />)
+        )}
+      </List.Item.Detail.Metadata.TagList>
+    </List.Item.Detail.Metadata>
   );
 }

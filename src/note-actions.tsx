@@ -35,24 +35,41 @@ function NotePreviewAction({ note }: { note: Note }) {
 }
 
 export default function NoteActions({ isNotePreview, note }: { isNotePreview: boolean; note: Note }) {
-  const { focusCursorAtEnd } = getPreferenceValues();
+  const { focusCursorAtEnd, openBearBehavior } = getPreferenceValues();
   const edit = focusCursorAtEnd ? "yes" : "no";
   return (
     <ActionPanel>
-      <ActionPanel.Section title="Open">
-        <Action.Open
-          title="Open in Bear"
-          target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
-          icon={Icon.Sidebar}
-        />
-        {note.encrypted ? null : (
+      {openBearBehavior ? (
+        <ActionPanel.Section title="Open">
+          {note.encrypted ? null : (
+            <Action.Open
+              title="Open Note"
+              target={`bear://x-callback-url/open-note?id=${note.id}&new_window=yes&edit=${edit}`}
+              icon={Icon.Window}
+            />
+          )}
           <Action.Open
-            title="Open in New Bear Window"
-            target={`bear://x-callback-url/open-note?id=${note.id}&new_window=yes&edit=${edit}`}
-            icon={Icon.Window}
+            title="Open in Bear"
+            target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
+            icon={Icon.Sidebar}
           />
-        )}
-      </ActionPanel.Section>
+        </ActionPanel.Section>
+      ) : (
+        <ActionPanel.Section title="Open">
+          <Action.Open
+            title="Open in Bear"
+            target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
+            icon={Icon.Sidebar}
+          />
+          {note.encrypted ? null : (
+            <Action.Open
+              title="Open Note"
+              target={`bear://x-callback-url/open-note?id=${note.id}&new_window=yes&edit=${edit}`}
+              icon={Icon.Window}
+            />
+          )}
+        </ActionPanel.Section>
+      )}
       {note.encrypted ? null : (
         <ActionPanel.Section title="Edit">
           <Action.Push
@@ -64,7 +81,7 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
           <Action
             title="Move to Archive"
             onAction={() => {
-              open(`bear://x-callback-url/archive?id=${note.id}&show_window=yes`, { background: true });
+              open(`bear://x-callback-url/archive?id=${note.id}&show_window=no`, { background: true });
               showToast(Toast.Style.Success, "Moved note to archive");
             }}
             icon={{ source: Icon.List, tintColor: Color.Orange }}

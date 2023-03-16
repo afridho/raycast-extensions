@@ -1,5 +1,12 @@
 # Bear Changelog
 
+## [Upgrade Feature] - 2023-03-04
+
+- Project taken by me
+- Remove detail metadata list preview
+- Add metadata when full preview note
+- Add preference to set default view mode
+
 ## [Fix crash] - 2022-11-29
 
 - Fix a crash that occurred when a note's text is `null`.

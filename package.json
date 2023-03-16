@@ -5,11 +5,14 @@
   "description": "Control Bear with Raycast",
   "icon": "command-icon.png",
   "author": "hmarr",
+  "owner": "bang-zega",
   "contributors": [
     "lucaschultz",
     "diokhan",
-    "ron-myers"
+    "ron-myers",
+    "afridho"
   ],
+  "access": "private",
   "license": "MIT",
   "commands": [
     {
@@ -36,22 +39,38 @@
   ],
   "preferences": [
     {
+      "default": false,
+      "description": "Opens the note in edit mode, placing the cursor at the end of the note",
+      "label": "Focus cursor at end of the note",
       "name": "focusCursorAtEnd",
       "title": "Opening Notes",
-      "description": "Opens the note in edit mode, placing the cursor at the end of the note",
-      "type": "checkbox",
-      "default": false,
-      "label": "Focus cursor at end of the note",
-      "required": false
+      "required": false,
+      "type": "checkbox"
     },
     {
-      "name": "showPreviewInListView",
-      "title": "Notes List",
-      "description": "Shows a preview of the note to the right of the note list",
-      "type": "checkbox",
       "default": true,
+      "description": "Opens the note in New window mode or same window",
+      "label": "Prefer open in New Window Mode",
+      "name": "openBearBehavior",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "default": true,
+      "description": "Shows a preview of the note to the right of the note list",
       "label": "Show preview in list view",
-      "required": false
+      "name": "showPreviewInListView",
+      "required": false,
+      "title": "Notes List",
+      "type": "checkbox"
+    },
+    {
+      "default": false,
+      "description": "Shows a metadata in List View",
+      "label": "Show metadata in list view",
+      "name": "showMetadataInListView",
+      "required": false,
+      "type": "checkbox"
     }
   ],
   "dependencies": {
@@ -78,6 +97,8 @@
     "build": "ray build -e dist",
     "dev": "ray develop",
     "lint": "ray lint",
+    "lint-fix": "ray lint --fix",
+    "publish": "ray publish",
     "prettier": "prettier --write . && prettier --check .",
     "update-sqlite-wasm": "cp node_modules/sql.js/dist/sql-wasm.wasm assets/sql-wasm.wasm"
   }

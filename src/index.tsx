@@ -21,6 +21,7 @@ export default function SearchNotes() {
   }
 
   const showDetail = (notes ?? []).length > 0 && getPreferenceValues().showPreviewInListView;
+  const { showMetadataInListView } = getPreferenceValues();
   return (
     <List
       isLoading={notes == undefined}
@@ -42,7 +43,7 @@ export default function SearchNotes() {
           detail={
             <List.Item.Detail
               markdown={note.encrypted ? "*This note's content is encrypted*" : note.text}
-              metadata={<NoteMetadata note={note} />}
+              metadata={showMetadataInListView ? <NoteMetadata note={note} /> : null}
             />
           }
         />
