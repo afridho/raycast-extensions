@@ -2,6 +2,7 @@
 ## [Update Feature] - 2023-03-18
 
 - Change archived action to silent without open Bear Window
+- Metadata option in preview 
 
 ## [Upgrade Feature] - 2023-03-04
 
