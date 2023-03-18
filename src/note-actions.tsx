@@ -90,7 +90,7 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
           <Action
             title="Move to Trash"
             onAction={() => {
-              open(`bear://x-callback-url/trash?id=${note.id}&show_window=yes`, { background: true });
+              open(`bear://x-callback-url/trash?id=${note.id}&show_window=no`, { background: true });
               showToast(Toast.Style.Success, "Moved note to trash");
             }}
             icon={{ source: Icon.Trash, tintColor: Color.Red }}

@@ -1,6 +1,10 @@
 # Bear Changelog
 ## [Update Feature] - 2023-03-18
 
+- Change move to trash action to silent without open Bear Window
+
+## [Update Feature] - 2023-03-16
+
 - Change archived action to silent without open Bear Window
 - Metadata option in preview 
 
