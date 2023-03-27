@@ -12,23 +12,25 @@ export function formatBearAttachments(text: string | null, forPreview = true): s
     return "";
   }
   let result = text;
-  const matches = result.matchAll(/\[(?<type>file|image):(?<path>.+)\]/g);
+  // const matches = result.matchAll(/\[(?<type>file|image):(?<path>.+)\]/g);
+  const matches = result.matchAll(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g);
+
   for (const match of matches) {
-    if (match.groups === undefined) {
-      return result;
-    }
+    // if (match.groups === undefined) {
+    //   return result;
+    // }
     let matchReplacement = "";
-    if (match.groups.type === "image" && !forPreview) {
-      const imagePath = `${BEAR_LOCAL_FILES_PATH}/Note Images/${match.groups.path}`;
-      matchReplacement = `![](${imagePath})`;
-    } else {
-      const fileLink = encodeURI(
-        `file://${BEAR_LOCAL_FILES_PATH}/${match.groups.type === "file" ? "Note Files" : "Note Images"}/${
-          match.groups.path
-        }`
-      );
-      matchReplacement = `[Show attached ${match.groups.type}](${fileLink})`;
-    }
+    // if (match.groups.type === "image" && !forPreview) {
+    //   const imagePath = `${BEAR_LOCAL_FILES_PATH}/Note Images/${match.groups.path}`;
+    //   matchReplacement = `![](${imagePath})`;
+    // } else {
+    // const fileLink = encodeURI(
+    //   `file://${BEAR_LOCAL_FILES_PATH}/${match.groups.type === "file" ? "Note Files" : "Note Images"}/${
+    //     match.groups.path
+    //   }`
+    // );
+    matchReplacement = `[Image Preview Not ${"available"}](${"bear://"})
+      `;
     result = result.replace(match[0], matchReplacement);
   }
   return result;

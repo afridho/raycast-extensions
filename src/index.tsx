@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Note } from "./bear-db";
 import { useBearDb } from "./hooks";
 import NoteActions from "./note-actions";
+import { formatBearAttachments } from "./preview-note";
 
 export default function SearchNotes() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -42,7 +43,7 @@ export default function SearchNotes() {
           }
           detail={
             <List.Item.Detail
-              markdown={note.encrypted ? "*This note's content is encrypted*" : note.text}
+              markdown={note.encrypted ? "*This note's content is encrypted*" : formatBearAttachments(note.text)}
               metadata={showMetadataInListView ? <NoteMetadata note={note} /> : null}
             />
           }
