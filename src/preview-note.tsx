@@ -29,7 +29,7 @@ export function formatBearAttachments(text: string | null, forPreview = true): s
     //     match.groups.path
     //   }`
     // );
-    matchReplacement = `[Image Preview Not ${"available"}](${"bear://"})
+    matchReplacement = `[Image ${"📸"}](${"bear://"})
       `;
     result = result.replace(match[0], matchReplacement);
   }
