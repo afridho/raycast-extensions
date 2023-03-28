@@ -1,4 +1,8 @@
 # Bear Changelog
+## [Upgrade] - 2023-03-27
+
+- Upgrade to compatibility with Bear 2 (beta release)
+
 ## [Update Feature] - 2023-03-18
 
 - Change move to trash action to silent without open Bear Window
