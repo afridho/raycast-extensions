@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { Note } from "./bear-db";
 import { useBearDb } from "./hooks";
 import NoteActions from "./note-actions";
-import { formatBearAttachments } from "./preview-note";
 
+interface SearchNotesArguments {
+  searchQuery?: string;
+}
 export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesArguments }>) {
   const { searchQuery: initialSearchQuery } = props.arguments;
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery ?? "");
@@ -23,7 +25,7 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
   }
 
   const showDetail = (notes ?? []).length > 0 && getPreferenceValues().showPreviewInListView;
-  const { showMetadataInListView } = getPreferenceValues();
+
   return (
     <List
       isLoading={notes == undefined}
@@ -53,8 +55,8 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
           }
           detail={
             <List.Item.Detail
-              markdown={note.encrypted ? "*This note's content is encrypted*" : formatBearAttachments(note.text)}
-              metadata={showMetadataInListView ? <NoteMetadata note={note} /> : null}
+              markdown={note.encrypted ? "*This note's content is encrypted*" : note.text}
+              metadata={<NoteMetadata note={note} />}
             />
           }
         />

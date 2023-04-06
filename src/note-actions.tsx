@@ -1,11 +1,11 @@
-import { Action, ActionPanel, Icon, Color, showToast, Toast, getPreferenceValues } from "@raycast/api";
+import { Action, ActionPanel, Color, getPreferenceValues, Icon, showToast, Toast } from "@raycast/api";
 import { HtmlRenderer, Parser } from "commonmark";
 import open from "open";
+import AddText from "./add-text";
 import { Note } from "./bear-db";
 import NoteLinks from "./note-links";
 import PreviewNote, { formatBearAttachments } from "./preview-note";
 import GrabUrl from "./grab-url";
-import AddText from "./add-text";
 import NewNote from "./new-note";
 
 function renderMarkdown(noteText: string): string {
@@ -133,7 +133,7 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
         {note.encrypted ? null : (
           <Action.CopyToClipboard
             title="Copy Unique Identifier"
-            content={`note.id`}
+            content={note.id}
             icon={Icon.QuestionMark}
             shortcut={{ modifiers: ["cmd", "opt", "shift"], key: "c" }}
           />

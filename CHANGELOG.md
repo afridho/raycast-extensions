@@ -1,4 +1,7 @@
 # Bear Changelog
+## [Upgrade] - 2023-04-06
+
+- Upgrade to latest raycast api
 ## [Upgrade] - 2023-03-27
 
 - Upgrade to compatibility with Bear 2 (beta release)
