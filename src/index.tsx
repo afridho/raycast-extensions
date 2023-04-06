@@ -6,6 +6,10 @@ import { useBearDb } from "./hooks";
 import NoteActions from "./note-actions";
 import { formatBearAttachments } from "./preview-note";
 
+interface SearchNotesArguments {
+  searchQuery?: string;
+}
+
 export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesArguments }>) {
   const { searchQuery: initialSearchQuery } = props.arguments;
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery ?? "");
