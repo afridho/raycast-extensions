@@ -1,9 +1,10 @@
-import { Color, getPreferenceValues, LaunchProps, List, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, Color, getPreferenceValues, LaunchProps, List, showToast, Toast } from "@raycast/api";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useEffect, useState } from "react";
 import { Note } from "./bear-db";
 import { useBearDb } from "./hooks";
-import NoteActions from "./note-actions";
+import NoteActions, { createBasicNote } from "./note-actions";
+import TagsDropdown from "./search-dropdown";
 import { formatBearAttachments } from "./preview-note";
 
 interface SearchNotesArguments {
@@ -15,18 +16,20 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery ?? "");
   const [db, error] = useBearDb();
   const [notes, setNotes] = useState<Note[]>();
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   useEffect(() => {
     if (db != null) {
-      setNotes(db.getNotes(searchQuery));
+      setNotes(db.getNotes(searchQuery, selectedTag ?? undefined));
     }
-  }, [db, searchQuery]);
+  }, [db, searchQuery, selectedTag]);
 
   if (error) {
     showToast(Toast.Style.Failure, "Something went wrong", error.message);
   }
 
   const showDetail = (notes ?? []).length > 0 && getPreferenceValues().showPreviewInListView;
+  const handleTagChange = (tag: string | null) => setSelectedTag(tag);
   const { showMetadataInListView } = getPreferenceValues();
   return (
     <List
@@ -36,6 +39,7 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
       searchBarPlaceholder="Search note text or id ..."
       isShowingDetail={showDetail}
       throttle={true}
+      searchBarAccessory={<TagsDropdown onTagChange={handleTagChange} />}
     >
       {notes?.map((note) => (
         <List.Item
@@ -63,6 +67,21 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
           }
         />
       ))}
+      {notes?.length === 0 && (
+        <List.Item
+          title={searchQuery}
+          icon={{ source: "command-icon.png" }}
+          actions={
+            <ActionPanel>
+              <Action
+                title="Create new note"
+                shortcut={{ modifiers: ["cmd"], key: "n" }}
+                onAction={() => createBasicNote(searchQuery)}
+              />
+            </ActionPanel>
+          }
+        />
+      )}
     </List>
   );
 }
