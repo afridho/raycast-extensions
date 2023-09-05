@@ -24,9 +24,12 @@ function renderMarkdown(noteText: string): string {
 }
 
 export function createBasicNote(title: string) {
-  return open(`bear://x-callback-url/create?title=${encodeURIComponent(title)}&show_window=yes&edit=yes`, {
-    background: false,
-  });
+  return open(
+    `bear://x-callback-url/create?title=${encodeURIComponent(title)}&show_window=yes&edit=yes&new_window=yes`,
+    {
+      background: true,
+    }
+  );
 }
 
 function NotePreviewAction({ note }: { note: Note }) {
@@ -35,7 +38,7 @@ function NotePreviewAction({ note }: { note: Note }) {
       title="Show Note Preview"
       target={<PreviewNote note={note} />}
       icon={Icon.Text}
-      shortcut={{ modifiers: ["cmd"], key: "p" }}
+      shortcut={{ modifiers: ["cmd", "opt"], key: "p" }}
     />
   );
 }
