@@ -27,7 +27,7 @@ export function createBasicNote(title: string) {
   return open(
     `bear://x-callback-url/create?title=${encodeURIComponent(title)}&show_window=yes&edit=yes&new_window=yes`,
     {
-      background: true,
+      background: false,
     }
   );
 }
