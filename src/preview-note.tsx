@@ -1,11 +1,11 @@
 import { Detail, List, Color, getPreferenceValues } from "@raycast/api";
-import { homedir } from "os";
+// import { homedir } from "os";
 import { Note } from "./bear-db";
 import NoteActions from "./note-actions";
 import { formatDistanceToNowStrict } from "date-fns";
 
-const BEAR_LOCAL_FILES_PATH =
-  homedir() + "/Library/Group Containers/9K33E3U3T4.net.shinyfrog.bear/Application Data/Local Files";
+// const BEAR_LOCAL_FILES_PATH =
+//   homedir() + "/Library/Group Containers/9K33E3U3T4.net.shinyfrog.bear/Application Data/Local Files";
 
 export function formatBearAttachments(text: string | null, forPreview = true): string {
   if (text === null) {
@@ -13,26 +13,30 @@ export function formatBearAttachments(text: string | null, forPreview = true): s
   }
   let result = text;
   // const matches = result.matchAll(/\[(?<type>file|image):(?<path>.+)\]/g);
+
+  //NOTE - for images files
   const matches = result.matchAll(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g);
 
   for (const match of matches) {
-    // if (match.groups === undefined) {
-    //   return result;
-    // }
-    let matchReplacement = "";
-    // if (match.groups.type === "image" && !forPreview) {
-    //   const imagePath = `${BEAR_LOCAL_FILES_PATH}/Note Images/${match.groups.path}`;
-    //   matchReplacement = `![](${imagePath})`;
-    // } else {
-    // const fileLink = encodeURI(
-    //   `file://${BEAR_LOCAL_FILES_PATH}/${match.groups.type === "file" ? "Note Files" : "Note Images"}/${
-    //     match.groups.path
-    //   }`
-    // );
-    matchReplacement = `[Image ${"📸"}](${"bear://"})
-      `;
+    const matchReplacement = "📸";
     result = result.replace(match[0], matchReplacement);
   }
+
+  // //NOTE - for files
+  const matchesFile = result.matchAll(/\[(.*?)\]\((?:.*\/)?([^/]+\.pdf)\)/g);
+  for (const match of matchesFile) {
+    const matchReplacement = `📃 ${match[1]}\n`;
+    result = result.replace(match[0], matchReplacement);
+  }
+
+  //NOTE - for preview caption <!-- {"preview":"true"} -->
+  const regexPreview = /<!--\s*{"preview":"true"}\s*-->/g;
+  result = result.replace(regexPreview, "\n");
+
+  //NOTE = for file embed caption <!-- {"embed":"true", "preview":"true"} -->
+  const regexEmbedFile = /<!--\s*{"embed":"true", "preview":"true"}\s*-->/g;
+  result = result.replace(regexEmbedFile, "\n");
+
   return result;
 }
 

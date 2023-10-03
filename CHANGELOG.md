@@ -1,4 +1,9 @@
 # Bear Changelog
+## [Update Feature] - 2023-10-03
+
+- Parse preview with clean code
+- Remove unnecessary markdown comments
+
 ## [Update Feature] - 2023-07-15
 
 - Latest commit update from original (2023-07-09)
