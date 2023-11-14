@@ -1,4 +1,7 @@
 # Bear Changelog
+## [Update Feature] - 2023-11-14
+- Convert highlight to code in preview mode
+
 ## [Update Feature] - 2023-10-03
 
 - Parse preview with clean code

@@ -12,6 +12,7 @@ export function formatBearAttachments(text: string | null, forPreview = true): s
     return "";
   }
   let result = text;
+
   // const matches = result.matchAll(/\[(?<type>file|image):(?<path>.+)\]/g);
 
   //NOTE - for images files
@@ -36,6 +37,9 @@ export function formatBearAttachments(text: string | null, forPreview = true): s
   //NOTE = for file embed caption <!-- {"embed":"true", "preview":"true"} -->
   const regexEmbedFile = /<!--\s*{"embed":"true", "preview":"true"}\s*-->/g;
   result = result.replace(regexEmbedFile, "\n");
+
+  //NOTE = for change highlight text to code
+  result = result.replace(/==([^=]+)==/g, "`$1`");
 
   return result;
 }
