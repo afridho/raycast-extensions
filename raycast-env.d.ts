@@ -33,8 +33,6 @@ declare namespace Preferences {
   /**  - When creating a new note, prepend time and date */
   "pinNote": boolean
 }
-  /** Preferences accessible in the `grab-url` command */
-  export type GrabUrl = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
@@ -45,6 +43,6 @@ declare namespace Arguments {
 }
   /** Arguments passed to the `new-note` command */
   export type NewNote = {}
-  /** Arguments passed to the `grab-url` command */
-  export type GrabUrl = {}
 }
+
+

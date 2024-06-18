@@ -1,4 +1,10 @@
 # Bear Changelog
+## [Menu Bar Command and Improvements] - 2024-06-04
+
+- Added a menu bar command to easily open notes.
+- Improved notes sorting so pinned notes appear at the top.
+- Updated the Bear icon.
+
 ## [Update Feature] - 2023-11-14
 - Convert highlight to code in preview mode
 
@@ -15,6 +21,7 @@
 
 - Upgrade to latest raycast api
 - Upgrade ESLint Outdated version
+
 ## [Upgrade] - 2023-03-27
 
 - Upgrade to compatibility with Bear 2 (beta release)
