@@ -38,7 +38,7 @@ function NotePreviewAction({ note }: { note: Note }) {
       title="Show Note Preview"
       target={<PreviewNote note={note} />}
       icon={Icon.Text}
-      shortcut={{ modifiers: ["cmd", "opt"], key: "p" }}
+      shortcut={{ modifiers: ["cmd", "shift"], key: "enter" }}
     />
   );
 }
