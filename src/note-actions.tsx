@@ -35,7 +35,7 @@ export function createBasicNote(title: string) {
 function NotePreviewAction({ note }: { note: Note }) {
   return (
     <Action.Push
-      title="Show Note Preview"
+      title="Open Note Preview"
       target={<PreviewNote note={note} />}
       icon={Icon.Text}
       shortcut={{ modifiers: ["cmd", "shift"], key: "enter" }}
@@ -62,6 +62,7 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
             target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
             icon={Icon.Sidebar}
           />
+          {isNotePreview ? null : <NotePreviewAction note={note} />}
         </ActionPanel.Section>
       ) : (
         <ActionPanel.Section title="Open">
@@ -108,7 +109,6 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
         </ActionPanel.Section>
       )}
       <ActionPanel.Section title="Show in Raycast">
-        {isNotePreview ? null : <NotePreviewAction note={note} />}
         <Action.Push
           title="Show Note Links"
           target={<NoteLinks note={note} />}
