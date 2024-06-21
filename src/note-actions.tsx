@@ -33,7 +33,7 @@ export function createBasicNote(title: string) {
 }
 
 function NotePreviewAction({ note }: { note: Note }) {
-  return <Action.Push title="Open Preview" target={<PreviewNote note={note} />} icon={Icon.AppWindowList} />;
+  return <Action.Push title="Open Preview" target={<PreviewNote note={note} />} icon={Icon.Sidebar} />;
 }
 
 export default function NoteActions({ isNotePreview, note }: { isNotePreview: boolean; note: Note }) {
