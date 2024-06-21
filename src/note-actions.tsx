@@ -33,14 +33,7 @@ export function createBasicNote(title: string) {
 }
 
 function NotePreviewAction({ note }: { note: Note }) {
-  return (
-    <Action.Push
-      title="Open Note Preview"
-      target={<PreviewNote note={note} />}
-      icon={Icon.Text}
-      shortcut={{ modifiers: ["cmd", "shift"], key: "enter" }}
-    />
-  );
+  return <Action.Push title="Open Note Preview" target={<PreviewNote note={note} />} icon={Icon.AppWindow} />;
 }
 
 export default function NoteActions({ isNotePreview, note }: { isNotePreview: boolean; note: Note }) {
@@ -54,15 +47,16 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
             <Action.Open
               title="Open Note"
               target={`bear://x-callback-url/open-note?id=${note.id}&new_window=yes&edit=${edit}`}
-              icon={Icon.Window}
+              icon={Icon.AppWindowList}
             />
           )}
+          {isNotePreview ? null : <NotePreviewAction note={note} />}
           <Action.Open
             title="Open in Bear"
             target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
             icon={Icon.Sidebar}
+            shortcut={{ modifiers: ["cmd", "shift"], key: "enter" }}
           />
-          {isNotePreview ? null : <NotePreviewAction note={note} />}
         </ActionPanel.Section>
       ) : (
         <ActionPanel.Section title="Open">
