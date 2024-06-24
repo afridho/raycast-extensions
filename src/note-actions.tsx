@@ -38,7 +38,6 @@ function NotePreviewAction({ note }: { note: Note }) {
 
 export default function NoteActions({ isNotePreview, note }: { isNotePreview: boolean; note: Note }) {
   const { focusCursorAtEnd, openBearBehavior, openPriority } = getPreferenceValues();
-  console.log("🚀 ~ NoteActions ~ openPriority:", openPriority);
   const edit = focusCursorAtEnd ? "yes" : "no";
   return (
     <ActionPanel>
