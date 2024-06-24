@@ -12,6 +12,8 @@ type ExtensionPreferences = {
   "focusCursorAtEnd": boolean,
   /**  - Opens the note in New window mode or same window */
   "openBearBehavior": boolean,
+  /** Default Priority - Open the note in preview mode or open bear to edit mode */
+  "openPriority": "view" | "edit",
   /** Notes List - Shows a preview of the note to the right of the note list */
   "showPreviewInListView": boolean,
   /**  - Shows a metadata in List & Preview */

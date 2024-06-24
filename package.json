@@ -99,6 +99,25 @@
       "type": "checkbox"
     },
     {
+      "default": "view",
+      "description": "Open the note in preview mode or open bear to edit mode",
+      "label": "Prefer open View or Edit",
+      "name": "openPriority",
+      "required": false,
+      "title": "Default Priority",
+      "type": "dropdown",
+      "data": [
+        {
+          "title": "Open Preview",
+          "value": "view"
+        },
+        {
+          "title": "Open Note",
+          "value": "edit"
+        }
+      ]
+    },
+    {
       "default": true,
       "description": "Shows a preview of the note to the right of the note list",
       "label": "Show preview in list view",
