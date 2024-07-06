@@ -32,7 +32,7 @@ declare namespace Preferences {
   "newNoteOpenMode": "no" | "main" | "new",
   /**  - When creating a new note, prepend time and date */
   "prependTimeAndDate": boolean,
-  /**  - When creating a new note, prepend time and date */
+  /**  - When creating a new note, pin the note */
   "pinNote": boolean
 }
 }

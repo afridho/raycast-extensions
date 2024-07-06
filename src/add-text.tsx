@@ -56,7 +56,7 @@ export default function AddText({ note }: { note: Note }) {
         }&show_window=${values.openNote !== "no" ? "yes" : "no"}&edit=${
           values.openNote === "no" ? "no" : "yes"
         }&timestamp=${values.timestamp ? "yes" : "no"}&text=${encodeURIComponent(values.text)}`,
-        { background: values.openNote === "no" ? true : false }
+        { background: values.openNote === "no" }
       );
 
       await closeMainWindow();
