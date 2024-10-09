@@ -6,7 +6,7 @@ import { Note } from "./bear-db";
 import NoteLinks from "./note-links";
 import PreviewNote, { formatBearAttachments } from "./preview-note";
 import GrabUrl from "./grab-url";
-import NewNote from "./new-note";
+// import NewNote from "./new-note";
 
 function renderMarkdown(noteText: string): string {
   const reader = new Parser();
@@ -28,7 +28,7 @@ export function createBasicNote(title: string) {
     `bear://x-callback-url/create?title=${encodeURIComponent(title)}&show_window=yes&edit=yes&new_window=yes`,
     {
       background: false,
-    }
+    },
   );
 }
 
@@ -171,12 +171,12 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
         )}
       </ActionPanel.Section>
       <ActionPanel.Section title="Create">
-        <Action.Push
+        {/* <Action.Push
           title="New Note"
           icon={Icon.Document}
           shortcut={{ modifiers: ["cmd"], key: "n" }}
           target={<NewNote />}
-        />
+        /> */}
         <Action.Push
           title="New Web Capture"
           icon={Icon.Globe}

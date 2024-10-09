@@ -26,15 +26,6 @@ declare type Preferences = ExtensionPreferences
 declare namespace Preferences {
   /** Preferences accessible in the `index` command */
   export type Index = ExtensionPreferences & {}
-  /** Preferences accessible in the `new-note` command */
-  export type NewNote = ExtensionPreferences & {
-  /** Opening Notes - Choose default opening mode when creating a new note */
-  "newNoteOpenMode": "no" | "main" | "new",
-  /**  - When creating a new note, prepend time and date */
-  "prependTimeAndDate": boolean,
-  /**  - When creating a new note, pin the note */
-  "pinNote": boolean
-}
 }
 
 declare namespace Arguments {
@@ -43,8 +34,6 @@ declare namespace Arguments {
   /** Search Query */
   "searchQuery": string
 }
-  /** Arguments passed to the `new-note` command */
-  export type NewNote = {}
 }
 
 
