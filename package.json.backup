@@ -30,6 +30,54 @@
           "required": false
         }
       ]
+    },
+    {
+      "name": "new-note",
+      "title": "Create Note",
+      "subtitle": "Bear",
+      "description": "Create a new Bear note",
+      "mode": "view",
+      "preferences": [
+        {
+          "default": "main",
+          "description": "Choose default opening mode when creating a new note",
+          "label": "Open new notes in",
+          "name": "newNoteOpenMode",
+          "required": false,
+          "title": "Opening Notes",
+          "type": "dropdown",
+          "data": [
+            {
+              "title": "Don't Open Note",
+              "value": "no"
+            },
+            {
+              "title": "In Main Window",
+              "value": "main"
+            },
+            {
+              "title": "In New Window",
+              "value": "new"
+            }
+          ]
+        },
+        {
+          "default": false,
+          "description": "When creating a new note, prepend time and date",
+          "label": "Prepend time and date",
+          "name": "prependTimeAndDate",
+          "required": false,
+          "type": "checkbox"
+        },
+        {
+          "default": false,
+          "description": "When creating a new note, pin the note",
+          "label": "Pin note in notes list",
+          "name": "pinNote",
+          "required": false,
+          "type": "checkbox"
+        }
+      ]
     }
   ],
   "preferences": [
