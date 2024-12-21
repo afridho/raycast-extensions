@@ -48,7 +48,7 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
           subtitle={showDetail ? undefined : note.formattedTags}
           icon={{ source: "command-icon.png" }}
           keywords={[note.id]}
-          actions={<NoteActions isNotePreview={false} note={note} />}
+          actions={<NoteActions isNotePreview={false} note={note} searchQuery={searchQuery} />}
           accessories={
             showDetail
               ? undefined

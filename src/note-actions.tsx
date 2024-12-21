@@ -36,7 +36,15 @@ function NotePreviewAction({ note }: { note: Note }) {
   return <Action.Push title="Open Preview" target={<PreviewNote note={note} />} icon={Icon.Sidebar} />;
 }
 
-export default function NoteActions({ isNotePreview, note }: { isNotePreview: boolean; note: Note }) {
+export default function NoteActions({
+  isNotePreview,
+  note,
+  searchQuery,
+}: {
+  isNotePreview: boolean;
+  note: Note;
+  searchQuery?: string;
+}) {
   const { focusCursorAtEnd, openBearBehavior, openPriority } = getPreferenceValues<Preferences>();
   const edit = focusCursorAtEnd ? "yes" : "no";
   return (
@@ -124,6 +132,10 @@ export default function NoteActions({ isNotePreview, note }: { isNotePreview: bo
             onAction={() => {
               open(`bear://x-callback-url/trash?id=${note.id}&show_window=no`, { background: true });
               showToast(Toast.Style.Success, "Moved note to trash");
+              const extensionUrl = `raycast://extensions/ridho-package/bear/index?arguments=${encodeURIComponent(
+                JSON.stringify({ searchQuery: searchQuery || "" }),
+              )}`;
+              open(extensionUrl);
             }}
             icon={{ source: Icon.Trash, tintColor: Color.Red }}
             shortcut={{ modifiers: ["ctrl"], key: "x" }}
