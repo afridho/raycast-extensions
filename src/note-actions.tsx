@@ -36,15 +36,15 @@ function NotePreviewAction({ note }: { note: Note }) {
   return <Action.Push title="Open Preview" target={<PreviewNote note={note} />} icon={Icon.Sidebar} />;
 }
 
-export default function NoteActions({
-  isNotePreview,
-  note,
-  searchQuery,
-}: {
+type NoteActionsProps = {
+  showDetail?: boolean;
+  onDetail?: () => void;
   isNotePreview: boolean;
   note: Note;
   searchQuery?: string;
-}) {
+};
+
+export default function NoteActions({ showDetail, onDetail, isNotePreview, note, searchQuery }: NoteActionsProps) {
   const { focusCursorAtEnd, openBearBehavior, openPriority } = getPreferenceValues<Preferences>();
   const edit = focusCursorAtEnd ? "yes" : "no";
   return (
@@ -68,6 +68,7 @@ export default function NoteActions({
               icon={Icon.AppWindow}
             />
           )}
+
           {note.encrypted ? (
             <Action.Open
               title="Open in Bear"
@@ -101,6 +102,7 @@ export default function NoteActions({
             target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
             icon={Icon.Sidebar}
           />
+
           {note.encrypted ? null : (
             <Action.Open
               title="Open Note"
@@ -110,6 +112,15 @@ export default function NoteActions({
           )}
         </ActionPanel.Section>
       )}
+      {/* MARK - Show Details  */}
+      <ActionPanel.Section title="Settings">
+        <Action
+          title={showDetail ? "Hide Details" : "Show Details"}
+          onAction={onDetail}
+          icon={Icon.Eye}
+          shortcut={{ modifiers: ["cmd"], key: "d" }}
+        />
+      </ActionPanel.Section>
       {note.encrypted ? null : (
         <ActionPanel.Section title="Edit">
           <Action.Push

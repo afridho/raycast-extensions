@@ -70,15 +70,6 @@
       ]
     },
     {
-      "default": true,
-      "description": "Shows a preview of the note to the right of the note list",
-      "label": "Show preview in list view",
-      "name": "showPreviewInListView",
-      "required": false,
-      "title": "Notes List",
-      "type": "checkbox"
-    },
-    {
       "default": false,
       "description": "Shows a metadata in List & Preview",
       "label": "Show metadata in list and preview",
@@ -88,7 +79,8 @@
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.77.3",
+    "@raycast/api": "^1.90.0",
+    "@raycast/utils": "^1.18.1",
     "commonmark": "^0.31.0",
     "date-fns": "^3.6.0",
     "open": "^8.4.2",

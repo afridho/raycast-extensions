@@ -6,6 +6,7 @@ import { useBearDb } from "./hooks";
 import NoteActions, { createBasicNote } from "./note-actions";
 import TagsDropdown from "./search-dropdown";
 import { formatBearAttachments } from "./preview-note";
+import { useCachedState } from "@raycast/utils";
 
 interface SearchNotesArguments {
   searchQuery?: string;
@@ -17,6 +18,7 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
   const [db, error] = useBearDb();
   const [notes, setNotes] = useState<Note[]>();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [showDetail, setShowDetail] = useCachedState<boolean>("pref-show-detail", false);
 
   useEffect(() => {
     if (db != null) {
@@ -28,16 +30,23 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
     showToast(Toast.Style.Failure, "Something went wrong", error.message);
   }
 
-  const showDetail = (notes ?? []).length > 0 && getPreferenceValues<Preferences>().showPreviewInListView;
   const handleTagChange = (tag: string | null) => setSelectedTag(tag);
   const { showMetadataInListView } = getPreferenceValues();
+
+  // Toggle function for show detail
+  const toggleShowDetail = () => {
+    setShowDetail(!showDetail);
+  };
+
+  const isShowDetail = (notes ?? []).length > 0 && showDetail;
+
   return (
     <List
       isLoading={notes == undefined}
       onSearchTextChange={setSearchQuery}
       searchText={searchQuery}
       searchBarPlaceholder="Search note text or id ..."
-      isShowingDetail={showDetail}
+      isShowingDetail={isShowDetail}
       throttle={true}
       searchBarAccessory={<TagsDropdown onTagChange={handleTagChange} />}
     >
@@ -48,7 +57,15 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
           subtitle={showDetail ? undefined : note.formattedTags}
           icon={{ source: "command-icon.png" }}
           keywords={[note.id]}
-          actions={<NoteActions isNotePreview={false} note={note} searchQuery={searchQuery} />}
+          actions={
+            <NoteActions
+              isNotePreview={false}
+              note={note}
+              searchQuery={searchQuery}
+              showDetail={showDetail}
+              onDetail={toggleShowDetail}
+            />
+          }
           accessories={
             showDetail
               ? undefined

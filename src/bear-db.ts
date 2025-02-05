@@ -42,7 +42,7 @@ export async function loadDatabase(): Promise<BearDb> {
 
 function formatTags(tags: string[]): string {
   if (tags.length === 0) {
-    return "Not Tagged";
+    return "";
   }
   const formattedTags = [];
   for (const tag of tags) {
