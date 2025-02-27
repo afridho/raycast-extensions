@@ -23,13 +23,9 @@ function renderMarkdown(noteText: string): string {
   }
 }
 
-export function createBasicNote(title: string) {
-  return open(
-    `bear://x-callback-url/create?title=${encodeURIComponent(title)}&show_window=yes&edit=yes&new_window=yes`,
-    {
-      background: false,
-    },
-  );
+export function createBasicNote(title: string, tag: string | null) {
+  const url = `bear://x-callback-url/create?title=${encodeURIComponent(title)}${tag ? `&tags=${tag}` : ""}&show_window=yes&edit=yes&new_window=yes`;
+  return open(url, { background: false });
 }
 
 function NotePreviewAction({ note }: { note: Note }) {

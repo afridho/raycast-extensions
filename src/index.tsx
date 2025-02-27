@@ -1,4 +1,14 @@
-import { Action, ActionPanel, Color, getPreferenceValues, LaunchProps, List, showToast, Toast } from "@raycast/api";
+import {
+  Action,
+  ActionPanel,
+  closeMainWindow,
+  Color,
+  getPreferenceValues,
+  LaunchProps,
+  List,
+  showToast,
+  Toast,
+} from "@raycast/api";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useEffect, useState } from "react";
 import { Note } from "./bear-db";
@@ -93,7 +103,10 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
               <Action
                 title="Create New Note"
                 shortcut={{ modifiers: ["cmd"], key: "n" }}
-                onAction={() => createBasicNote(searchQuery)}
+                onAction={() => {
+                  createBasicNote(searchQuery, selectedTag);
+                  closeMainWindow();
+                }}
               />
             </ActionPanel>
           }
