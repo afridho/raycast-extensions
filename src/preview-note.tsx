@@ -8,40 +8,36 @@ import { formatDistanceToNowStrict } from "date-fns";
 //   homedir() + "/Library/Group Containers/9K33E3U3T4.net.shinyfrog.bear/Application Data/Local Files";
 
 export function formatBearAttachments(text: string | null): string {
-  if (text === null) {
-    return "";
-  }
-  let result = text;
+  // Return empty string if input is null
+  if (text === null) return "";
 
-  // const matches = result.matchAll(/\[(?<type>file|image):(?<path>.+)\]/g);
+  let result = text
+    // Replace image links with camera emoji
+    .replace(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g, "📸")
 
-  //NOTE - for images files
-  const matches = result.matchAll(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g);
+    // Replace PDF links with document emoji and link text
+    .replace(/\[(.*?)\]\((?:.*\/)?([^/]+\.pdf)\)/g, (_, label) => `📃 ${label}\n`)
 
-  for (const match of matches) {
-    const matchReplacement = "📸";
-    result = result.replace(match[0], matchReplacement);
-  }
+    // Remove preview caption comments
+    .replace(/<!--\s*{"preview":"true"}\s*-->/g, "\n")
 
-  // //NOTE - for files
-  const matchesFile = result.matchAll(/\[(.*?)\]\((?:.*\/)?([^/]+\.pdf)\)/g);
-  for (const match of matchesFile) {
-    const matchReplacement = `📃 ${match[1]}\n`;
-    result = result.replace(match[0], matchReplacement);
-  }
+    // Remove file embed caption comments
+    .replace(/<!--\s*{"embed":"true", "preview":"true"}\s*-->/g, "\n")
 
-  //NOTE - for preview caption <!-- {"preview":"true"} -->
-  const regexPreview = /<!--\s*{"preview":"true"}\s*-->/g;
-  result = result.replace(regexPreview, "\n");
+    // Replace checkbox marks with squares
+    .replace(/- \[ \]/g, "□")
+    .replace(/- \[x\]/g, "✔︎");
 
-  //NOTE = for file embed caption <!-- {"embed":"true", "preview":"true"} -->
-  const regexEmbedFile = /<!--\s*{"embed":"true", "preview":"true"}\s*-->/g;
-  result = result.replace(regexEmbedFile, "\n");
+  // List of color emojis to replace
+  const colorEmojis = ["🟢", "🔴", "🔵", "🟡", "🟣"];
 
-  //NOTE = for change highlight text to code
-  result = result.replace(/==([^=]+)==/g, "`$1`");
+  // Replace colored highlights with code-formatted text
+  colorEmojis.forEach((emoji) => {
+    result = result.replace(new RegExp(`==${emoji}(.+?)==`, "g"), "`$1`");
+  });
 
-  return result;
+  // Replace remaining default highlights with code-formatted text
+  return result.replace(/==([^=]+)==/g, "`$1`");
 }
 
 export default function PreviewNote({ note }: { note: Note }) {
