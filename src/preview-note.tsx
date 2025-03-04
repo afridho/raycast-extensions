@@ -26,7 +26,7 @@ export function formatBearAttachments(text: string | null): string {
 
     // Replace checkbox marks with squares
     .replace(/^(- \[ \].*)$/gm, (match) => match.replace(/- \[ \]/, "□") + "\n")
-    .replace(/^(- \[x\].*)$/gm, (match) => match.replace(/- \[x\]/, "✔︎") + "\n");
+    .replace(/^(- \[x\] .*)$/gm, (match) => match.replace(/- \[x\] /, "✔︎ ~~") + "~~\n"); // handle checkmark with strikethrough
 
   // List of color emojis to replace
   const colorEmojis = ["🟢", "🔴", "🔵", "🟡", "🟣"];
