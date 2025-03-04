@@ -109,14 +109,16 @@ export default function NoteActions({ showDetail, onDetail, isNotePreview, note,
         </ActionPanel.Section>
       )}
       {/* MARK - Show Details  */}
-      <ActionPanel.Section title="Settings">
-        <Action
-          title={showDetail ? "Hide Details" : "Show Details"}
-          onAction={onDetail}
-          icon={Icon.Eye}
-          shortcut={{ modifiers: ["cmd"], key: "d" }}
-        />
-      </ActionPanel.Section>
+      {!isNotePreview && (
+        <ActionPanel.Section title="Settings">
+          <Action
+            title={showDetail ? "Hide Details" : "Show Details"}
+            onAction={onDetail}
+            icon={Icon.Eye}
+            shortcut={{ modifiers: ["cmd"], key: "d" }}
+          />
+        </ActionPanel.Section>
+      )}
       {note.encrypted ? null : (
         <ActionPanel.Section title="Edit">
           <Action.Push
