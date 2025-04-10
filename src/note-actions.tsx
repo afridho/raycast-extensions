@@ -48,15 +48,7 @@ export default function NoteActions({ showDetail, onDetail, isNotePreview, note,
       {openBearBehavior ? (
         <ActionPanel.Section title="Open">
           {isNotePreview ? null : openPriority === "view" ? (
-            note.encrypted ? (
-              <Action.Open
-                title="Open Note"
-                target={`bear://x-callback-url/open-note?id=${note.id}&new_window=yes&edit=${edit}`}
-                icon={Icon.AppWindow}
-              />
-            ) : (
-              <NotePreviewAction note={note} />
-            )
+            <NotePreviewAction note={note} />
           ) : (
             <Action.Open
               title="Open Note"
@@ -65,14 +57,7 @@ export default function NoteActions({ showDetail, onDetail, isNotePreview, note,
             />
           )}
 
-          {note.encrypted ? (
-            <Action.Open
-              title="Open in Bear"
-              target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
-              icon={Icon.AppWindowList}
-              shortcut={{ modifiers: ["cmd", "shift"], key: "enter" }}
-            />
-          ) : openPriority === "view" ? (
+          {openPriority === "view" ? (
             <Action.Open
               title="Open Note"
               target={`bear://x-callback-url/open-note?id=${note.id}&new_window=yes&edit=${edit}`}
@@ -82,14 +67,12 @@ export default function NoteActions({ showDetail, onDetail, isNotePreview, note,
             <NotePreviewAction note={note} />
           )}
 
-          {note.encrypted ? null : (
-            <Action.Open
-              title="Open in Bear"
-              target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
-              icon={Icon.AppWindowList}
-              shortcut={{ modifiers: ["cmd", "shift"], key: "enter" }}
-            />
-          )}
+          <Action.Open
+            title="Open in Bear"
+            target={`bear://x-callback-url/open-note?id=${note.id}&edit=${edit}`}
+            icon={Icon.AppWindowList}
+            shortcut={{ modifiers: ["cmd", "shift"], key: "enter" }}
+          />
         </ActionPanel.Section>
       ) : (
         <ActionPanel.Section title="Open">
