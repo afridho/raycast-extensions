@@ -24,7 +24,7 @@ function renderMarkdown(noteText: string): string {
 }
 
 export function createBasicNote(title: string, tag: string | null) {
-  const url = `bear://x-callback-url/create?title=${encodeURIComponent(title)}${tag ? `&tags=${tag}` : ""}&show_window=yes&edit=yes&new_window=yes`;
+  const url = `bear://x-callback-url/create?title=${encodeURIComponent(title)}${tag ? `&text=%23${tag}%0A%0A` : ""}&show_window=yes&edit=yes&new_window=yes`;
   return open(url, { background: false });
 }
 
