@@ -32,6 +32,56 @@
       ]
     }
   ],
+  "tools": [
+    {
+      "name": "search-notes",
+      "title": "Search Notes",
+      "description": "Search Bear notes"
+    }
+  ],
+  "ai": {
+    "evals": [
+      {
+        "input": "@bear search for note with tag bear/welcome",
+        "mocks": {
+          "search-notes": [
+            {
+              "id": "SFNote2Intro3",
+              "title": "Welcome to Bear 👋",
+              "text": "# Welcome to Bear 👋\n...",
+              "pinned": true,
+              "tags": [
+                "bear/welcome",
+                "bear"
+              ],
+              "formattedTags": "#bear/welcome"
+            },
+            {
+              "id": "78471A46-55B3-417F-AC3F-7D60F581F0F9",
+              "title": "Get started with Bear",
+              "text": "# Get started with Bear \n\n![]...",
+              "pinned": false,
+              "tags": [
+                "bear/welcome",
+                "bear"
+              ],
+              "formattedTags": "#bear/welcome"
+            }
+          ]
+        },
+        "expected": [
+          {
+            "callsTool": {
+              "arguments": {
+                "tag": "bear/welcome"
+              },
+              "name": "search-notes"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "preferences": [
     {
       "default": false,
