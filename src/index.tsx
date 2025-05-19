@@ -28,7 +28,7 @@ export default function SearchNotes(props: LaunchProps<{ arguments: SearchNotesA
   const [db, error] = useBearDb();
   const [notes, setNotes] = useState<Note[]>();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [showDetail, setShowDetail] = useCachedState<boolean>("pref-show-detail", false);
+  const [showDetail, setShowDetail] = useCachedState<boolean>("pref-show-detail", true);
 
   useEffect(() => {
     if (db != null) {
